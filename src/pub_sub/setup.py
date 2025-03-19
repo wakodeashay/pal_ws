@@ -20,7 +20,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'sub_node = pub_sub.sub_node:main'
+            'sub_node = pub_sub.sub_node:main',
+            'sensor_msg_pub_node = pub_sub.sensor_msg_pub_node:main',
+            'geometry_msg_pub_node = pub_sub.geometry_msg_pub_node:main',
+            'std_msg_pub_node = pub_sub.std_msg_pub_node:main',
         ],
     },
 )
