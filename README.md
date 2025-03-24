@@ -86,7 +86,7 @@ source install/setup.bash
     ```
     ![alt text](doc/ex1_step2.png)   
 
-* Step 3: Change the goal publish rate and check the behaviour
+* Step 3: Change the goal publish rate fynamically and check the behaviour
 
     ![alt text](doc/exercise1.gif)   
 
