@@ -26,15 +26,19 @@ class CustomActionServer(Node):
         self.get_logger().info("Action server ready.")
 
     def goal_callback(self, goal_request: CustomGoal.Goal):
+        '''Callback to accept/reject goal sent by client'''
         # Accept received goal simply!
         self.get_logger().info("Received goal request and Accepted")
         return GoalResponse.ACCEPT
 
     def cancel_callback(self, goal_handle: ServerGoalHandle):
+        '''callback to cancel goal sent by client'''
+        # Accept camcellation request
         self.get_logger().info(f"Received cancel request for Goal: {self.command}")
         return CancelResponse.ACCEPT
 
     def execute_callback(self, goal_handle: ServerGoalHandle):
+        '''Callback to execute goal'''
         self.get_logger().info(f"Executing goal: {goal_handle.request.goal_command}")
         self.command = goal_handle.request.goal_command
         result = CustomGoal.Result()
@@ -42,11 +46,14 @@ class CustomActionServer(Node):
         steps = 5.0
         time_period = 5.0
 
+        # Execute goal in a simple loop with certain sleep duration
         for i in range(int(steps)):
+            # Check if cancellation requested
             if goal_handle.is_cancel_requested:
                 self.get_logger().warn("Goal was aborted.")
                 goal_handle.canceled()
                 break
+            # No cancellation request -> continue execution
             else:
                 feedback = CustomGoal.Feedback()
                 feedback.percent_completion = (i + 1) * (100.0 / steps)
@@ -56,6 +63,7 @@ class CustomActionServer(Node):
                 goal_handle.publish_feedback(feedback)
                 sleep(time_period / steps)
 
+        # Check if the goal succeeded or was cancelled
         if i == steps - 1:
             goal_handle.succeed()
             self.get_logger().info("Goal succeeded.")
