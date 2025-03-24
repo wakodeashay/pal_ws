@@ -12,7 +12,7 @@ from custom_action.action import CustomGoal
 
 class CustomActionClient(Node):
     def __init__(self):
-        super().__init__('action_client')
+        super().__init__('timed_action_client')
         
         # Topic name to subscribe goal
         goal_topic_name = '/goal_topic'
