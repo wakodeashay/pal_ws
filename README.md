@@ -92,3 +92,27 @@ source install/setup.bash
 
 
 ### Exercise 2
+
+* Step 1: Start a publisher node of your choice. Use the commands below to start the respective publishers.
+
+    ```
+    ros2 run pub_sub std_msg_pub_node
+    ```
+
+    ```
+    ros2 run pub_sub sensor_msg_pub_node
+    ```
+
+    ```
+    ros2 run pub_sub geometry_msg_pub_node
+    ```
+
+* Step 2: Start the subscriber node in a different terminal.
+    ```
+    ros2 run  pub_sub sub_node
+    ```
+    ![alt text](doc/ex2_step2.png) 
+
+* Step 3: Check the behaviour. To check alternate publisher, shutdown the previous publisher and subsciber pair using Ctrl+c and start a new one.
+
+    ![alt text](doc/exercise2.gif) 
