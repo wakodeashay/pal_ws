@@ -83,11 +83,12 @@ source install/setup.bash
 * Step 2: Start server and check the behaviour.
     ```
     ros2 run action_mux action_server 
- ![alt text](doc/ex1_step2.png)   ```
+    ```
+    ![alt text](doc/ex1_step2.png)   
 
 * Step 3: Change the goal publish rate and check the behaviour
 
-[![Watch the video](doc/ex1_thumbnail)](doc/exercise1.mp4)
+    ![alt text](doc/exercise1.gif)   
 
 
 ### Exercise 2
