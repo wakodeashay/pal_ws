@@ -23,15 +23,19 @@ class GoalPublisher(Node):
         self.get_logger().info(f"Starting publisher at {self.publish_rate:.2f} Hz")
 
     def publish_callback(self):
+        '''Timer callback to publish at a certain rate'''
         msg = Int16()
+        # Generate a random target to achieve
         msg.data = random.randint(0,9)
         self.publisher_.publish(msg)
         self.get_logger().info(f"Publishing: '{msg.data}', at rate {self.publish_rate:.2f} Hz")
 
     def parameter_callback(self, params):
+        '''Callback to check dynamic change in publish rate param'''
         for param in params:
             if param.name == 'publish_rate' and param.type_ == param.Type.DOUBLE:
                 new_rate = param.value
+                # Incase of a change cancel previous timer and create a new one with the new rate
                 if new_rate > 0.0:
                     self.publish_rate = new_rate
                     self.timer.cancel()
