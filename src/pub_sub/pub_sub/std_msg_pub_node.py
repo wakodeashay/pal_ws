@@ -10,8 +10,10 @@ class StdMsgPublisher(Node):
         self.count_ = 0
 
     def publish_message(self):
+        '''Timer Callback'''
         msg = Bool()
-
+        
+        # Change between True and False between every 10 iterations
         mod_count_ = int(self.count_/10)
 
         if mod_count_%2 == 0:

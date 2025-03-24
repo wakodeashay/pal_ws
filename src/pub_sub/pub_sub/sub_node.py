@@ -9,10 +9,12 @@ class GeneralSubscriber(Node):
         super().__init__('general_subscriber')
 
         topic_name = '/common_topic'
+        # Get all all topic name and their types
         topics = self.get_topic_names_and_types()
 
         for topic, msg_type in topics:
             self.msg_type = get_message(msg_type[0])
+            # Check required topic name is present
             if topic_name == topic:
                 self.get_logger().info(f"Topic name {topic_name} available!")
                 self.get_logger().info(f"Subscribing to topic: {topic_name} with type: {msg_type}")
@@ -25,6 +27,8 @@ class GeneralSubscriber(Node):
                 )
 
     def subscriber_callback(self, msg):
+        '''Subscriber Callback'''
+        # Print msg type and msg to verify the subscribed msg
         self.get_logger().info(f"Received message of type {self.msg_type}: {msg}")
 
 def main():

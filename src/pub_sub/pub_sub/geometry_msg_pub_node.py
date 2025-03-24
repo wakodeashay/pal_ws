@@ -9,6 +9,7 @@ class GeometryMsgPublisher(Node):
         self.pub_timer_ = self.create_timer(2.0, self.publish_message)
 
     def publish_message(self):
+        '''Timer callback'''
         msg = Vector3()
         msg.x = 8.0
         msg.y = 9.0

@@ -10,6 +10,7 @@ class SensorMsgPublisher(Node):
         self.pub_timer_ = self.create_timer(2.0, self.publish_message)
 
     def publish_message(self):
+        '''Timer Callback'''
         msg = Imu()
         data = Quaternion()
         data.x = 0.0
