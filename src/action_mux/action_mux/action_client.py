@@ -33,14 +33,13 @@ class CustomActionClient(Node):
 
     def goal_callback(self, msg):
         '''Goal Callback'''
-        self.count_ = self.count_ + 1
         self.goal = msg.data
         self.get_logger().info(f"Received new goal command: {self.goal}")
         self.new_goal_ = self.goal
         self.action_client_.wait_for_server()
 
         # Cancel existing goal incase of new except for the first time
-        if self.count_ !=1:
+        if self.count_ !=0:
             # Abort previous goal if still running
             if self.goal_handle_.status == GoalStatus.STATUS_EXECUTING:
                 self.get_logger().warn("Cancelling previous goal..." + str(self.prev_goal_))
@@ -52,6 +51,7 @@ class CustomActionClient(Node):
 
     def send_goal(self, goal_value):
         '''Function to send goal action'''
+        self.count_ = self.count_ + 1 
         goal = CustomGoal.Goal()
         goal.goal_command = goal_value
 
