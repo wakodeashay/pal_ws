@@ -78,7 +78,7 @@ source install/setup.bash
     ```
     ros2 run action_mux action_client 
     ```
-![alt text](doc/ex1_step1.png)
+    ![alt text](doc/ex1_step1.png)
 
 * Step 2: Start server and check the behaviour.
     ```
