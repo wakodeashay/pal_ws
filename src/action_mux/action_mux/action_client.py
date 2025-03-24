@@ -13,7 +13,8 @@ from custom_action.action import CustomGoal
 class CustomActionClient(Node):
     def __init__(self):
         super().__init__('action_client')
-
+        
+        # Topic name to subscribe goal
         goal_topic_name = '/goal_topic'
 
         self.action_client_ = ActionClient(self, CustomGoal, 'goal_service')
@@ -31,12 +32,14 @@ class CustomActionClient(Node):
         self.get_logger().info('Action client ready. Waiting for Server!')
 
     def goal_callback(self, msg):
+        '''Goal Callback'''
         self.count_ = self.count_ + 1
         self.goal = msg.data
         self.get_logger().info(f"Received new goal command: {self.goal}")
         self.new_goal_ = self.goal
         self.action_client_.wait_for_server()
 
+        # Cancel existing goal incase of new except for the first time
         if self.count_ !=1:
             # Abort previous goal if still running
             if self.goal_handle_.status == GoalStatus.STATUS_EXECUTING:
@@ -48,6 +51,7 @@ class CustomActionClient(Node):
         self.prev_goal_ = self.new_goal_
 
     def send_goal(self, goal_value):
+        '''Function to send goal action'''
         goal = CustomGoal.Goal()
         goal.goal_command = goal_value
 
@@ -56,8 +60,8 @@ class CustomActionClient(Node):
             send_goal_async(goal).\
             add_done_callback(self.goal_response_callback)
 
-    # Callback to check if the goal is accepted or rejected
     def goal_response_callback(self, future):
+        '''Callback to check if the goal is accepted or rejected'''
         self.goal_handle_: ClientGoalHandle = future.result()
         if self.goal_handle_.accepted:
             self.goal_handle_.\
@@ -65,6 +69,7 @@ class CustomActionClient(Node):
             add_done_callback(self.goal_result_callback)
 
     def goal_result_callback(self, future):
+        '''Callback to check if the goal succeded or cancelled'''
         status = future.result().status 
         result = future.result().result
 
