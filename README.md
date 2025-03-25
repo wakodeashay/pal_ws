@@ -90,6 +90,7 @@ source install/setup.bash
 
     ![alt text](doc/exercise1.gif)   
 
+* Additional features: Dynamic parameter change for publisher node, which allows changing publish rate without rebooting the publisher node with new publish rate.
 
 ### Exercise 2
 
